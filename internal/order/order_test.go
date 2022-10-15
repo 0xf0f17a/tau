@@ -30,4 +30,8 @@ var _ = Describe("Order", func() {
 		Expect(ord.Count).To(Equal(count))
 		Expect(ord.Type).To(Equal(order.Sell))
 	})
+	It("Should create valid sell order", func() {
+		ord := order.BuyOrder(inst, value.NewFloat(25), timeStamp, uint64(4))
+		Expect(ord.Amount()).To(Equal(value.NewFloat(100)))
+	})
 })

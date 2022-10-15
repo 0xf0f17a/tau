@@ -25,3 +25,7 @@ func SellOrder(instr instr.Instrument, price value.Value, time time.Time, count 
 func newOrder(instr instr.Instrument, price value.Value, time time.Time, count uint64, t Type) *Order {
 	return &Order{instr, price, time, count, t}
 }
+
+func (o *Order) Amount() value.Value {
+	return o.Price.Multiply(value.NewFloat(float32(o.Count)))
+}
