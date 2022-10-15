@@ -16,4 +16,12 @@ var _ = Describe("Timeframe", func() {
 		tf := timeframe.PerNMinute(15)
 		Expect(tf.Duration()).To(Equal(15 * time.Minute))
 	})
+	It("Has Per Hour timeframe", func() {
+		tf := timeframe.PerHour()
+		Expect(tf.Duration()).To(Equal(1 * time.Hour))
+	})
+	It("Has Per N Hour timeframe", func() {
+		tf := timeframe.PerNHours(15)
+		Expect(tf.Duration()).To(Equal(15 * time.Hour))
+	})
 })
