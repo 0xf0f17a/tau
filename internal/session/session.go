@@ -14,11 +14,11 @@ func New(open value.Value, close value.Value, high value.Value, low value.Value)
 }
 
 func (s *Session) IsBullish() bool {
-	return s.Open.(value.Float) < s.Close.(value.Float)
+	return s.Open.IsLessThan(s.Close)
 }
 
 func (s *Session) IsBearish() bool {
-	return s.Open.(value.Float) > s.Close.(value.Float)
+	return s.Open.IsGreaterThan(s.Close)
 }
 
 func (s *Session) Length() value.Value {
