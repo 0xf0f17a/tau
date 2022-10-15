@@ -13,3 +13,11 @@ func (v Float) Plus(another Value) Value {
 func (v Float) Minus(another Value) Value {
 	return v - another.(Float)
 }
+
+func (v Float) Multiply(another Value) Value {
+	return v * another.(Float)
+}
+
+func (v Float) Divide(another Value) Value {
+	return v / another.(Float)
+}

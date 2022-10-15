@@ -23,5 +23,15 @@ var _ = Describe("Value", func() {
 			result := value.NewFloat(10)
 			Expect(minus).To(Equal(result))
 		})
+		It("Should have a multiply method", func() {
+			multiply := first.Multiply(second)
+			result := value.NewFloat(1496)
+			Expect(multiply).To(Equal(result))
+		})
+		It("Should have a divide method", func() {
+			divide := second.Divide(first)
+			result := value.NewFloat(1.2941176891326904)
+			Expect(divide).To(BeIdenticalTo(result))
+		})
 	})
 })
