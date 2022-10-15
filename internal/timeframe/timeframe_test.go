@@ -23,4 +23,28 @@ var _ = Describe("Timeframe", func() {
 		tf := timeframe.PerNHours(15)
 		Expect(tf.Duration()).To(Equal(15 * timeframe.Hour))
 	})
+	It("Has Per Day timeframe", func() {
+		tf := timeframe.PerDay()
+		Expect(tf.Duration()).To(Equal(1 * timeframe.Day))
+	})
+	It("Has Per N Day timeframe", func() {
+		tf := timeframe.PerNDays(15)
+		Expect(tf.Duration()).To(Equal(15 * timeframe.Day))
+	})
+	It("Has Per Week timeframe", func() {
+		tf := timeframe.PerWeek()
+		Expect(tf.Duration()).To(Equal(1 * timeframe.Week))
+	})
+	It("Has Per N Week timeframe", func() {
+		tf := timeframe.PerNWeeks(15)
+		Expect(tf.Duration()).To(Equal(15 * timeframe.Week))
+	})
+	It("Has Per Month timeframe", func() {
+		tf := timeframe.PerMonth()
+		Expect(tf.Duration()).To(Equal(1 * timeframe.Month))
+	})
+	It("Has Per N Month timeframe", func() {
+		tf := timeframe.PerNMonths(15)
+		Expect(tf.Duration()).To(Equal(15 * timeframe.Month))
+	})
 })
