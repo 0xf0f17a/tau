@@ -1,47 +1,47 @@
 package value
 
-type Float float32
+type float float32
 
-func (v Float) Name() string {
+func (v float) Name() string {
 	return "Float"
 }
 
-func (v Float) Plus(another Value) Value {
-	return v + another.(Float)
+func (v float) Plus(another Value) Value {
+	return v + another.(float)
 }
 
-func (v Float) Minus(another Value) Value {
-	return v - another.(Float)
+func (v float) Minus(another Value) Value {
+	return v - another.(float)
 }
 
-func (v Float) Multiply(another Value) Value {
-	return v * another.(Float)
+func (v float) Multiply(another Value) Value {
+	return v * another.(float)
 }
 
-func (v Float) Divide(another Value) Value {
-	return v / another.(Float)
+func (v float) Divide(another Value) Value {
+	return v / another.(float)
 }
 
-func (v Float) IsGreaterThan(another Value) bool {
-	return v > another.(Float)
+func (v float) IsGreaterThan(another Value) bool {
+	return v > another.(float)
 }
 
-func (v Float) IsLessThan(another Value) bool {
-	return v < another.(Float)
+func (v float) IsLessThan(another Value) bool {
+	return v < another.(float)
 }
 
-func (v Float) IsGreaterThanEqualTo(another Value) bool {
-	return v >= another.(Float)
+func (v float) IsGreaterThanEqualTo(another Value) bool {
+	return v >= another.(float)
 }
 
-func (v Float) IsLessThanEqualTo(another Value) bool {
-	return v <= another.(Float)
+func (v float) IsLessThanEqualTo(another Value) bool {
+	return v <= another.(float)
 }
 
-func (v Float) IsEqualTo(another Value) bool {
-	return v == another.(Float)
+func (v float) IsEqualTo(another Value) bool {
+	return v == another.(float)
 }
 
-func (v Float) IsNotEqualTo(another Value) bool {
-	return v != another.(Float)
+func (v float) IsNotEqualTo(another Value) bool {
+	return v != another.(float)
 }

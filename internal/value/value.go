@@ -15,5 +15,5 @@ type Value interface {
 }
 
 func NewFloat(v float32) Value {
-	return Float(v)
+	return float(v)
 }
