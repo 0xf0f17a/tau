@@ -11,13 +11,13 @@ import (
 
 var _ = Describe("Tick", func() {
 	inst := "InstrumentName"
-	var price float32 = 343.3
+	price := value.NewFloat(343)
 	timeStamp := time.Now()
 	var count uint64 = 1
-	t := tick.New(instr.New(inst), value.NewFloat(price), timeStamp, count)
+	t := tick.New(instr.New(inst), price, timeStamp, count)
 	It("Should return all valid values", func() {
 		Expect(t.Instr.String()).To(Equal("InstrumentName"))
-		Expect(t.Price).To(Equal(value.NewFloat(price)))
+		Expect(t.Price).To(Equal(price))
 		Expect(t.Time).To(Equal(timeStamp))
 		Expect(t.Count).To(Equal(count))
 	})
