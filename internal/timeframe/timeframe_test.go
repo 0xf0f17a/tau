@@ -47,4 +47,20 @@ var _ = Describe("Timeframe", func() {
 		tf := timeframe.PerNMonths(15)
 		Expect(tf.Duration()).To(Equal(15 * timeframe.Month))
 	})
+	It("Has Per Quarter timeframe", func() {
+		tf := timeframe.PerQuarter()
+		Expect(tf.Duration()).To(Equal(1 * timeframe.Quarter))
+	})
+	It("Has Per N Quarter timeframe", func() {
+		tf := timeframe.PerNQuarter(15)
+		Expect(tf.Duration()).To(Equal(15 * timeframe.Quarter))
+	})
+	It("Has Per Year timeframe", func() {
+		tf := timeframe.PerYear()
+		Expect(tf.Duration()).To(Equal(1 * timeframe.Year))
+	})
+	It("Has Per N Year timeframe", func() {
+		tf := timeframe.PerNYear(15)
+		Expect(tf.Duration()).To(Equal(15 * timeframe.Year))
+	})
 })

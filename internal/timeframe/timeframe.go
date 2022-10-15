@@ -3,11 +3,13 @@ package timeframe
 type TimeFrame uint64
 
 const (
-	Minute uint64 = 1
-	Hour          = 60 * Minute
-	Day           = 24 * Hour
-	Week          = 7 * Day
-	Month         = 4 * Week
+	Minute  uint64 = 1
+	Hour           = 60 * Minute
+	Day            = 24 * Hour
+	Week           = 7 * Day
+	Month          = 4 * Week
+	Quarter        = 3 * Month
+	Year           = 4 * Quarter
 )
 
 func PerMinute() TimeFrame {
@@ -48,6 +50,22 @@ func PerMonth() TimeFrame {
 
 func PerNMonths(n uint8) TimeFrame {
 	return newDuration(uint64(n), Month)
+}
+
+func PerQuarter() TimeFrame {
+	return newDuration(1, Quarter)
+}
+
+func PerNQuarter(n uint8) TimeFrame {
+	return newDuration(uint64(n), Quarter)
+}
+
+func PerYear() TimeFrame {
+	return newDuration(1, Year)
+}
+
+func PerNYear(n uint8) TimeFrame {
+	return newDuration(uint64(n), Year)
 }
 
 func newDuration(multiple uint64, period uint64) TimeFrame {
