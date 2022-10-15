@@ -8,5 +8,5 @@ func (v Float) Name() string {
 
 func (v Float) Plus(another Value) Value {
 	var float = another.(Float)
-	return NewFloat(float32(v) + float32(float))
+	return v + float
 }
