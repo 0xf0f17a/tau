@@ -18,5 +18,10 @@ var _ = Describe("Value", func() {
 			result := value.NewFloat(78)
 			Expect(plus).To(Equal(result))
 		})
+		It("Should have a minus method", func() {
+			minus := second.Minus(first)
+			result := value.NewFloat(10)
+			Expect(minus).To(Equal(result))
+		})
 	})
 })

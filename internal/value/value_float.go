@@ -7,6 +7,9 @@ func (v Float) Name() string {
 }
 
 func (v Float) Plus(another Value) Value {
-	var float = another.(Float)
-	return v + float
+	return v + another.(Float)
+}
+
+func (v Float) Minus(another Value) Value {
+	return v - another.(Float)
 }
