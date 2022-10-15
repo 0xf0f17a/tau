@@ -13,11 +13,6 @@ type Tick struct {
 	Count uint64
 }
 
-func New(
-	instr instr.Instrument,
-	price value.Value,
-	time time.Time,
-	count uint64,
-) *Tick {
+func New(instr instr.Instrument, price value.Value, time time.Time, count uint64) *Tick {
 	return &Tick{instr, price, time, count}
 }
