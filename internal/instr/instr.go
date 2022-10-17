@@ -13,3 +13,7 @@ func (i Instrument) String() string {
 type Reader interface {
 	ReadInstr() (Instrument, error)
 }
+
+type Writer interface {
+	WriteInstr(instrument Instrument) error
+}

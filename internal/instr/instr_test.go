@@ -26,6 +26,10 @@ func (r *ConstantInstrumentReader) ReadInstr() (instr.Instrument, error) {
 	}
 }
 
+func (r *ConstantInstrumentReader) WriteInstr(instr.Instrument) error {
+	return r.err
+}
+
 func TestInstrumentReader_ReadInstr_Success(t *testing.T) {
 	const str = "InstrumentName"
 	testCases := map[string]instr.Reader{
@@ -52,6 +56,33 @@ func TestInstrumentReader_ReadInstr_Failed(t *testing.T) {
 			inst, err := reader.ReadInstr()
 			assert.Error(t, err)
 			assert.Equal(t, instr.Instrument(""), inst)
+		})
+	}
+}
+
+func TestInstrumentReader_WriteInstr_Success(t *testing.T) {
+	const str = "InstrumentName"
+	testCases := map[string]instr.Writer{
+		"constantInstrumentReader": &ConstantInstrumentReader{err: nil},
+	}
+	for name, writer := range testCases {
+		t.Run(name, func(t *testing.T) {
+			err := writer.WriteInstr(instr.New(str))
+			assert.NoError(t, err)
+		})
+	}
+}
+
+func TestInstrumentReader_WriteInstr_Failed(t *testing.T) {
+	const str = "InstrumentName"
+	testCases := map[string]instr.Writer{
+		"constantInstrumentReader": &ConstantInstrumentReader{err: errors.Str("unknown error")},
+	}
+	for name, writer := range testCases {
+		t.Run(name, func(t *testing.T) {
+			err := writer.WriteInstr(instr.New(str))
+			assert.Error(t, err)
+			assert.Equal(t, "unknown error", err.Error())
 		})
 	}
 }
