@@ -7,80 +7,256 @@ import (
 )
 
 func TestValueHasName(t *testing.T) {
-	assert.Equal(t, "Float", value.NewFloat(23).Name())
+	testCases := map[string]struct {
+		val      value.Value
+		expected string
+	}{
+		"Float": {
+			val:      value.NewFloat(23),
+			expected: "Float",
+		},
+	}
+	for name, tc := range testCases {
+		t.Run(name, func(t *testing.T) {
+			assert.Equal(t, tc.expected, tc.val.Name())
+		})
+	}
 }
 
 func TestValueCanBeAdded(t *testing.T) {
-	first := value.NewFloat(23)
-	second := value.NewFloat(45)
-	result := value.NewFloat(68)
-	assert.Equal(t, result, first.Plus(second))
+	testCases := map[string]struct {
+		first  value.Value
+		second value.Value
+		result value.Value
+	}{
+		"FloatValid": {
+			first:  value.NewFloat(23),
+			second: value.NewFloat(45),
+			result: value.NewFloat(68),
+		},
+	}
+	for name, tc := range testCases {
+		t.Run(name, func(t *testing.T) {
+			assert.Equal(t, tc.result, tc.first.Plus(tc.second))
+		})
+	}
 }
 
 func TestValueCanBeSubtracted(t *testing.T) {
-	first := value.NewFloat(45)
-	second := value.NewFloat(23)
-	result := value.NewFloat(22)
-	assert.Equal(t, result, first.Minus(second))
+	testCases := map[string]struct {
+		first  value.Value
+		second value.Value
+		result value.Value
+	}{
+		"FloatValid": {
+			first:  value.NewFloat(45),
+			second: value.NewFloat(23),
+			result: value.NewFloat(22),
+		},
+	}
+	for name, tc := range testCases {
+		t.Run(name, func(t *testing.T) {
+			assert.Equal(t, tc.result, tc.first.Minus(tc.second))
+		})
+	}
 }
 
 func TestValueCanBeMultiplied(t *testing.T) {
-	first := value.NewFloat(23)
-	second := value.NewFloat(45)
-	result := value.NewFloat(1035)
-	assert.Equal(t, result, first.Multiply(second))
+	testCases := map[string]struct {
+		first  value.Value
+		second value.Value
+		result value.Value
+	}{
+		"FloatValid": {
+			first:  value.NewFloat(23),
+			second: value.NewFloat(45),
+			result: value.NewFloat(1035),
+		},
+	}
+	for name, tc := range testCases {
+		t.Run(name, func(t *testing.T) {
+			assert.Equal(t, tc.result, tc.first.Multiply(tc.second))
+		})
+	}
 }
 
 func TestValueCanBeDivided(t *testing.T) {
-	first := value.NewFloat(46)
-	second := value.NewFloat(23)
-	result := value.NewFloat(2)
-	assert.Equal(t, result, first.Divide(second))
+	testCases := map[string]struct {
+		first  value.Value
+		second value.Value
+		result value.Value
+	}{
+		"FloatValid": {
+			first:  value.NewFloat(46),
+			second: value.NewFloat(23),
+			result: value.NewFloat(2),
+		},
+	}
+	for name, tc := range testCases {
+		t.Run(name, func(t *testing.T) {
+			assert.Equal(t, tc.result, tc.first.Divide(tc.second))
+		})
+	}
 }
 
 func TestValueHasGreaterThanComparison(t *testing.T) {
-	first := value.NewFloat(46)
-	second := value.NewFloat(23)
-	third := value.NewFloat(23)
-	assert.True(t, first.IsGreaterThan(second))
-	assert.False(t, second.IsGreaterThan(third))
+	testCases := map[string]struct {
+		first        value.Value
+		second       value.Value
+		third        value.Value
+		first2Second bool
+		first2Third  bool
+		second2Third bool
+	}{
+		"FloatValid": {
+			first:        value.NewFloat(46),
+			second:       value.NewFloat(23),
+			third:        value.NewFloat(23),
+			first2Second: true,
+			first2Third:  true,
+			second2Third: false,
+		},
+	}
+	for name, tc := range testCases {
+		t.Run(name, func(t *testing.T) {
+			assert.Equal(t, tc.first2Second, tc.first.IsGreaterThan(tc.second))
+			assert.Equal(t, tc.first2Third, tc.first.IsGreaterThan(tc.third))
+			assert.Equal(t, tc.second2Third, tc.second.IsGreaterThan(tc.third))
+		})
+	}
 }
 
 func TestValueHasLessThanComparison(t *testing.T) {
-	first := value.NewFloat(46)
-	second := value.NewFloat(23)
-	third := value.NewFloat(23)
-	assert.True(t, second.IsLessThan(first))
-	assert.False(t, second.IsLessThan(third))
+	testCases := map[string]struct {
+		first        value.Value
+		second       value.Value
+		third        value.Value
+		first2Second bool
+		first2Third  bool
+		second2Third bool
+	}{
+		"FloatValid": {
+			first:        value.NewFloat(46),
+			second:       value.NewFloat(23),
+			third:        value.NewFloat(23),
+			first2Second: false,
+			first2Third:  false,
+			second2Third: false,
+		},
+	}
+	for name, tc := range testCases {
+		t.Run(name, func(t *testing.T) {
+			assert.Equal(t, tc.first2Second, tc.first.IsLessThan(tc.second))
+			assert.Equal(t, tc.first2Third, tc.first.IsLessThan(tc.third))
+			assert.Equal(t, tc.second2Third, tc.second.IsLessThan(tc.third))
+		})
+	}
 }
+
 func TestValueHasGreaterThanEqualComparison(t *testing.T) {
-	first := value.NewFloat(46)
-	second := value.NewFloat(23)
-	third := value.NewFloat(23)
-	assert.True(t, first.IsGreaterThanEqualTo(second))
-	assert.True(t, second.IsGreaterThanEqualTo(third))
+	testCases := map[string]struct {
+		first        value.Value
+		second       value.Value
+		third        value.Value
+		first2Second bool
+		first2Third  bool
+		second2Third bool
+	}{
+		"FloatValid": {
+			first:        value.NewFloat(46),
+			second:       value.NewFloat(23),
+			third:        value.NewFloat(23),
+			first2Second: true,
+			first2Third:  true,
+			second2Third: true,
+		},
+	}
+	for name, tc := range testCases {
+		t.Run(name, func(t *testing.T) {
+			assert.Equal(t, tc.first2Second, tc.first.IsGreaterThanEqualTo(tc.second))
+			assert.Equal(t, tc.first2Third, tc.first.IsGreaterThanEqualTo(tc.third))
+			assert.Equal(t, tc.second2Third, tc.second.IsGreaterThanEqualTo(tc.third))
+		})
+	}
 }
 
 func TestValueHasLessThanEqualComparison(t *testing.T) {
-	first := value.NewFloat(46)
-	second := value.NewFloat(23)
-	third := value.NewFloat(23)
-	assert.True(t, second.IsLessThanEqualTo(first))
-	assert.True(t, second.IsLessThanEqualTo(third))
+	testCases := map[string]struct {
+		first        value.Value
+		second       value.Value
+		third        value.Value
+		first2Second bool
+		first2Third  bool
+		second2Third bool
+	}{
+		"FloatValid": {
+			first:        value.NewFloat(46),
+			second:       value.NewFloat(23),
+			third:        value.NewFloat(23),
+			first2Second: false,
+			first2Third:  false,
+			second2Third: true,
+		},
+	}
+	for name, tc := range testCases {
+		t.Run(name, func(t *testing.T) {
+			assert.Equal(t, tc.first2Second, tc.first.IsLessThanEqualTo(tc.second))
+			assert.Equal(t, tc.first2Third, tc.first.IsLessThanEqualTo(tc.third))
+			assert.Equal(t, tc.second2Third, tc.second.IsLessThanEqualTo(tc.third))
+		})
+	}
 }
 
 func TestValueHasEqualComparison(t *testing.T) {
-	first := value.NewFloat(46)
-	second := value.NewFloat(23)
-	third := value.NewFloat(23)
-	assert.False(t, first.IsEqualTo(second))
-	assert.True(t, second.IsEqualTo(third))
+	testCases := map[string]struct {
+		first        value.Value
+		second       value.Value
+		third        value.Value
+		first2Second bool
+		first2Third  bool
+		second2Third bool
+	}{
+		"FloatValid": {
+			first:        value.NewFloat(46),
+			second:       value.NewFloat(23),
+			third:        value.NewFloat(23),
+			first2Second: false,
+			first2Third:  false,
+			second2Third: true,
+		},
+	}
+	for name, tc := range testCases {
+		t.Run(name, func(t *testing.T) {
+			assert.Equal(t, tc.first2Second, tc.first.IsEqualTo(tc.second))
+			assert.Equal(t, tc.first2Third, tc.first.IsEqualTo(tc.third))
+			assert.Equal(t, tc.second2Third, tc.second.IsEqualTo(tc.third))
+		})
+	}
 }
 
 func TestValueHasNotEqualComparison(t *testing.T) {
-	first := value.NewFloat(46)
-	second := value.NewFloat(23)
-	third := value.NewFloat(23)
-	assert.True(t, second.IsNotEqualTo(first))
-	assert.False(t, second.IsNotEqualTo(third))
+	testCases := map[string]struct {
+		first        value.Value
+		second       value.Value
+		third        value.Value
+		first2Second bool
+		first2Third  bool
+		second2Third bool
+	}{
+		"FloatValid": {
+			first:        value.NewFloat(46),
+			second:       value.NewFloat(23),
+			third:        value.NewFloat(23),
+			first2Second: true,
+			first2Third:  true,
+			second2Third: false,
+		},
+	}
+	for name, tc := range testCases {
+		t.Run(name, func(t *testing.T) {
+			assert.Equal(t, tc.first2Second, tc.first.IsNotEqualTo(tc.second))
+			assert.Equal(t, tc.first2Third, tc.first.IsNotEqualTo(tc.third))
+			assert.Equal(t, tc.second2Third, tc.second.IsNotEqualTo(tc.third))
+		})
+	}
 }
