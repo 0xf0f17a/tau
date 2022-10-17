@@ -9,3 +9,7 @@ func New(v string) Instrument {
 func (i Instrument) String() string {
 	return string(i)
 }
+
+type Reader interface {
+	ReadInstr() (Instrument, error)
+}
