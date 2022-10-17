@@ -2,65 +2,77 @@ package timeframe_test
 
 import (
 	"github.com/0xf0f17a/tau/internal/timeframe"
-	. "github.com/onsi/ginkgo/v2"
-	. "github.com/onsi/gomega"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
-var _ = Describe("Timeframe", func() {
-	It("Has Per minute timeframe", func() {
-		tf := timeframe.PerMinute()
-		Expect(tf.Duration()).To(Equal(1 * timeframe.Minute))
-	})
-	It("Has Per N minute timeframe", func() {
-		tf := timeframe.PerNMinute(15)
-		Expect(tf.Duration()).To(Equal(15 * timeframe.Minute))
-	})
-	It("Has Per Hour timeframe", func() {
-		tf := timeframe.PerHour()
-		Expect(tf.Duration()).To(Equal(1 * timeframe.Hour))
-	})
-	It("Has Per N Hour timeframe", func() {
-		tf := timeframe.PerNHours(15)
-		Expect(tf.Duration()).To(Equal(15 * timeframe.Hour))
-	})
-	It("Has Per Day timeframe", func() {
-		tf := timeframe.PerDay()
-		Expect(tf.Duration()).To(Equal(1 * timeframe.Day))
-	})
-	It("Has Per N Day timeframe", func() {
-		tf := timeframe.PerNDays(15)
-		Expect(tf.Duration()).To(Equal(15 * timeframe.Day))
-	})
-	It("Has Per Week timeframe", func() {
-		tf := timeframe.PerWeek()
-		Expect(tf.Duration()).To(Equal(1 * timeframe.Week))
-	})
-	It("Has Per N Week timeframe", func() {
-		tf := timeframe.PerNWeeks(15)
-		Expect(tf.Duration()).To(Equal(15 * timeframe.Week))
-	})
-	It("Has Per Month timeframe", func() {
-		tf := timeframe.PerMonth()
-		Expect(tf.Duration()).To(Equal(1 * timeframe.Month))
-	})
-	It("Has Per N Month timeframe", func() {
-		tf := timeframe.PerNMonths(15)
-		Expect(tf.Duration()).To(Equal(15 * timeframe.Month))
-	})
-	It("Has Per Quarter timeframe", func() {
-		tf := timeframe.PerQuarter()
-		Expect(tf.Duration()).To(Equal(1 * timeframe.Quarter))
-	})
-	It("Has Per N Quarter timeframe", func() {
-		tf := timeframe.PerNQuarter(15)
-		Expect(tf.Duration()).To(Equal(15 * timeframe.Quarter))
-	})
-	It("Has Per Year timeframe", func() {
-		tf := timeframe.PerYear()
-		Expect(tf.Duration()).To(Equal(1 * timeframe.Year))
-	})
-	It("Has Per N Year timeframe", func() {
-		tf := timeframe.PerNYear(15)
-		Expect(tf.Duration()).To(Equal(15 * timeframe.Year))
-	})
-})
+func TestTimeFrame_Duration(t *testing.T) {
+	testCases := map[string]struct {
+		tf  timeframe.TimeFrame
+		val uint64
+	}{
+		"PerMinute": {
+			tf:  timeframe.PerMinute(),
+			val: 1 * timeframe.Minute,
+		},
+		"PerNMinute": {
+			tf:  timeframe.PerNMinute(15),
+			val: 15 * timeframe.Minute,
+		},
+		"PerHour": {
+			tf:  timeframe.PerHour(),
+			val: 1 * timeframe.Hour,
+		},
+		"PerNHour": {
+			tf:  timeframe.PerNHours(4),
+			val: 4 * timeframe.Hour,
+		},
+		"PerDay": {
+			tf:  timeframe.PerDay(),
+			val: 1 * timeframe.Day,
+		},
+		"PerNDay": {
+			tf:  timeframe.PerNDays(5),
+			val: 5 * timeframe.Day,
+		},
+		"PerWeek": {
+			tf:  timeframe.PerWeek(),
+			val: 1 * timeframe.Week,
+		},
+		"PerNWeek": {
+			tf:  timeframe.PerNWeeks(3),
+			val: 3 * timeframe.Week,
+		},
+		"PerMonth": {
+			tf:  timeframe.PerMonth(),
+			val: 1 * timeframe.Month,
+		},
+		"PerNMonth": {
+			tf:  timeframe.PerNMonths(2),
+			val: 2 * timeframe.Month,
+		},
+		"PerQuarter": {
+			tf:  timeframe.PerQuarter(),
+			val: 1 * timeframe.Quarter,
+		},
+		"PerNQuarter": {
+			tf:  timeframe.PerNQuarter(2),
+			val: 2 * timeframe.Quarter,
+		},
+		"PerYear": {
+			tf:  timeframe.PerYear(),
+			val: 1 * timeframe.Year,
+		},
+		"PerNYear": {
+			tf:  timeframe.PerNYear(4),
+			val: 4 * timeframe.Year,
+		},
+	}
+	for name, tt := range testCases {
+		t.Run(name, func(t *testing.T) {
+			tf := tt.tf.Duration()
+			tv := tt.val
+			assert.Equal(t, tf, tv)
+		})
+	}
+}
