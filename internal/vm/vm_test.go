@@ -8,6 +8,14 @@ import (
 	"testing"
 )
 
+var (
+	open       = value.NewFloat(10)
+	greenClose = value.NewFloat(15)
+	high       = value.NewFloat(20)
+	low        = value.NewFloat(5)
+	ses        = session.New(open, greenClose, high, low)
+)
+
 func TestVMExecute(t *testing.T) {
 	testCases := map[string]struct {
 		opcodes []vm.Opcode
@@ -24,11 +32,6 @@ func TestVMExecute(t *testing.T) {
 			for _, opcode := range tC.opcodes {
 				v.Emit(opcode)
 			}
-			open := value.NewFloat(10)
-			greenClose := value.NewFloat(15)
-			high := value.NewFloat(20)
-			low := value.NewFloat(5)
-			ses := session.New(open, greenClose, high, low)
 			assert.Equal(t, tC.signal, v.Step(ses))
 		})
 	}
@@ -37,11 +40,6 @@ func TestVMExecute(t *testing.T) {
 func TestVMHaltStopsVM(t *testing.T) {
 	v := vm.NewVM()
 	v.Emit(vm.OpCodeHalt)
-	open := value.NewFloat(10)
-	greenClose := value.NewFloat(15)
-	high := value.NewFloat(20)
-	low := value.NewFloat(5)
-	ses := session.New(open, greenClose, high, low)
 	v.Step(ses)
 	assert.False(t, v.IsRunning())
 }
@@ -49,11 +47,6 @@ func TestVMHaltStopsVM(t *testing.T) {
 func TestVMOpenLoadsOpen(t *testing.T) {
 	v := vm.NewVM()
 	v.Emit(vm.OpCodeOpen)
-	open := value.NewFloat(10)
-	greenClose := value.NewFloat(15)
-	high := value.NewFloat(20)
-	low := value.NewFloat(5)
-	ses := session.New(open, greenClose, high, low)
 	v.Step(ses)
 	assert.Equal(t, open, v.RegAt(vm.RegA))
 }
@@ -61,11 +54,6 @@ func TestVMOpenLoadsOpen(t *testing.T) {
 func TestVMCloseLoadsClose(t *testing.T) {
 	v := vm.NewVM()
 	v.Emit(vm.OpCodeClose)
-	open := value.NewFloat(10)
-	greenClose := value.NewFloat(15)
-	high := value.NewFloat(20)
-	low := value.NewFloat(5)
-	ses := session.New(open, greenClose, high, low)
 	v.Step(ses)
 	assert.Equal(t, greenClose, v.RegAt(vm.RegA))
 }
@@ -73,11 +61,6 @@ func TestVMCloseLoadsClose(t *testing.T) {
 func TestVMHighLoadsHigh(t *testing.T) {
 	v := vm.NewVM()
 	v.Emit(vm.OpCodeHigh)
-	open := value.NewFloat(10)
-	greenClose := value.NewFloat(15)
-	high := value.NewFloat(20)
-	low := value.NewFloat(5)
-	ses := session.New(open, greenClose, high, low)
 	v.Step(ses)
 	assert.Equal(t, high, v.RegAt(vm.RegA))
 }
@@ -85,11 +68,6 @@ func TestVMHighLoadsHigh(t *testing.T) {
 func TestVMLowLoadsLow(t *testing.T) {
 	v := vm.NewVM()
 	v.Emit(vm.OpCodeLow)
-	open := value.NewFloat(10)
-	greenClose := value.NewFloat(15)
-	high := value.NewFloat(20)
-	low := value.NewFloat(5)
-	ses := session.New(open, greenClose, high, low)
 	v.Step(ses)
 	assert.Equal(t, low, v.RegAt(vm.RegA))
 }
