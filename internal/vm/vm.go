@@ -29,6 +29,10 @@ func (v *VM) Step(sess *session.Session) Signal {
 			v.registers[RegA] = sess.Open
 		case OpCodeClose:
 			v.registers[RegA] = sess.Close
+		case OpCodeHigh:
+			v.registers[RegA] = sess.High
+		case OpCodeLow:
+			v.registers[RegA] = sess.Low
 		default:
 			break
 		}
