@@ -3,6 +3,7 @@ package vm
 type Opcode int
 
 const (
-	OpCodeHalt Opcode = 1
-	OpCodeOpen Opcode = 2
+	OpCodeHalt  Opcode = 1
+	OpCodeOpen  Opcode = 2
+	OpCodeClose Opcode = 3
 )

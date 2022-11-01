@@ -27,6 +27,8 @@ func (v *VM) Step(sess *session.Session) Signal {
 			v.running = false
 		case OpCodeOpen:
 			v.registers[RegA] = sess.Open
+		case OpCodeClose:
+			v.registers[RegA] = sess.Close
 		default:
 			break
 		}

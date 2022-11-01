@@ -57,3 +57,15 @@ func TestVMOpenLoadsOpen(t *testing.T) {
 	v.Step(ses)
 	assert.Equal(t, open, v.RegAt(vm.RegA))
 }
+
+func TestVMCloseLoadsClose(t *testing.T) {
+	v := vm.NewVM()
+	v.Emit(vm.OpCodeClose)
+	open := value.NewFloat(10)
+	greenClose := value.NewFloat(15)
+	high := value.NewFloat(20)
+	low := value.NewFloat(5)
+	ses := session.New(open, greenClose, high, low)
+	v.Step(ses)
+	assert.Equal(t, greenClose, v.RegAt(vm.RegA))
+}
