@@ -4,4 +4,5 @@ type Opcode int
 
 const (
 	OpCodeHalt Opcode = 1
+	OpCodeOpen Opcode = 2
 )

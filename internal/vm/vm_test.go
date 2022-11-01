@@ -45,3 +45,15 @@ func TestVMHaltStopsVM(t *testing.T) {
 	v.Step(ses)
 	assert.False(t, v.IsRunning())
 }
+
+func TestVMOpenLoadsOpen(t *testing.T) {
+	v := vm.NewVM()
+	v.Emit(vm.OpCodeOpen)
+	open := value.NewFloat(10)
+	greenClose := value.NewFloat(15)
+	high := value.NewFloat(20)
+	low := value.NewFloat(5)
+	ses := session.New(open, greenClose, high, low)
+	v.Step(ses)
+	assert.Equal(t, open, v.RegAt(vm.RegA))
+}
